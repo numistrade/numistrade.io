@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Checkout | NumisTrade</title>
+  <meta name="description" content="Enter your delivery details and place your NumisTrade order.">
+
+  <meta property="og:title" content="Checkout | NumisTrade">
+  <meta property="og:description" content="Enter your details and place your order. Payment by UPI.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://numistrade.github.io/numistrade.io/checkout.html">
+
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <nav class="nav" aria-label="Main navigation">
+
+      <a href="index.html" class="brand">
+        <span class="coin-logo" aria-hidden="true">N</span>
+        <span class="brand-text">
+          <span class="brand-name">NUMISTRADE</span>
+          <span class="brand-tagline">Coins • History • Collection</span>
+        </span>
+      </a>
+
+      <button type="button" class="menu-toggle" data-menu-toggle aria-expanded="false" aria-controls="nav-links" aria-label="Open menu">☰</button>
+
+      <div class="nav-links" id="nav-links">
+        <a href="index.html#categories">Categories</a>
+        <a href="products.html">Coins</a>
+        <a href="index.html#how-it-works">How It Works</a>
+      </div>
+
+      <a href="cart.html" class="cart-button">🛒 Cart (<span data-cart-count>0</span>)</a>
+
+    </nav>
+  </header>
+
+  <main class="section">
+
+    <h1 class="page-title">Checkout</h1>
+    <p class="page-subtitle">Enter your details, place the order, then pay by UPI.</p>
+
+    <div id="checkout-empty" class="state-message" hidden>
+      Your cart is empty. <a href="products.html">Browse coins</a> to add items first.
+    </div>
+
+    <div class="checkout-layout" id="checkout-layout" hidden>
+
+      <form id="checkout-form" novalidate>
+
+        <div class="form-section">
+          <h2>Customer details</h2>
+
+          <div class="form-grid">
+            <div class="field field-full">
+              <label for="full-name">Full name *</label>
+              <input class="form-control" type="text" id="full-name" name="fullName" autocomplete="name" aria-describedby="full-name-error" required>
+              <p class="field-error" id="full-name-error" role="alert" hidden></p>
+            </div>
+
+            <div class="field">
+              <label for="phone">Mobile number *</label>
+              <input class="form-control" type="tel" id="phone" name="phone" inputmode="tel" autocomplete="tel" placeholder="98765 43210" aria-describedby="phone-error" required>
+              <p class="field-error" id="phone-error" role="alert" hidden></p>
+            </div>
+
+            <div class="field">
+              <label for="email">Email (optional)</label>
+              <input class="form-control" type="email" id="email" name="email" autocomplete="email" aria-describedby="email-error">
+              <p class="field-error" id="email-error" role="alert" hidden></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h2>Delivery address</h2>
+
+          <div class="form-grid">
+            <div class="field field-full">
+              <label for="address">Address *</label>
+              <textarea class="form-control" id="address" name="address" autocomplete="street-address" aria-describedby="address-error" required></textarea>
+              <p class="field-error" id="address-error" role="alert" hidden></p>
+            </div>
+
+            <div class="field">
+              <label for="city">City *</label>
+              <input class="form-control" type="text" id="city" name="city" autocomplete="address-level2" aria-describedby="city-error" required>
+              <p class="field-error" id="city-error" role="alert" hidden></p>
+            </div>
+
+            <div class="field">
+              <label for="state">State *</label>
+              <input class="form-control" type="text" id="state" name="state" autocomplete="address-level1" aria-describedby="state-error" required>
+              <p class="field-error" id="state-error" role="alert" hidden></p>
+            </div>
+
+            <div class="field">
+              <label for="postal-code">PIN code *</label>
+              <input class="form-control" type="text" id="postal-code" name="postalCode" inputmode="numeric" autocomplete="postal-code" placeholder="6 digits" aria-describedby="postal-code-error" required>
+              <p class="field-error" id="postal-code-error" role="alert" hidden></p>
+            </div>
+
+            <div class="field">
+              <label for="country">Country *</label>
+              <select class="form-control" id="country" name="country" autocomplete="country-name">
+                <option value="India" selected>India</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h2>Payment</h2>
+          <div class="notice">
+            Payment is by <strong>UPI</strong>. After you place the order you will see
+            the payment instructions (QR / UPI ID) on the confirmation screen.
+            <br><br>
+            <strong>Order will be processed after payment verification.</strong>
+            Recording a payment reference is not proof of payment — the store
+            verifies every payment manually before fulfilling the order.
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-gold btn-block">Place Order</button>
+        <p class="hint hint-center">You will review the UPI payment instructions on the next screen.</p>
+
+      </form>
+
+      <aside class="summary-card" aria-label="Order summary">
+        <h2>Order Summary</h2>
+
+        <div id="summary-items"></div>
+
+        <div class="summary-row">
+          <span>Subtotal</span>
+          <span id="summary-subtotal">₹0</span>
+        </div>
+
+        <div class="summary-row">
+          <span>Delivery charge</span>
+          <span id="summary-delivery">—</span>
+        </div>
+
+        <div class="summary-row summary-total">
+          <span>Total</span>
+          <span id="summary-total">₹0</span>
+        </div>
+
+        <p class="hint">Free delivery on orders above ₹2,000. Final price and stock are confirmed by the store after order review.</p>
+      </aside>
+
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <p><strong>NUMISTRADE</strong></p>
+    <p>Coins • History • Collection</p>
+
+    <nav class="site-footer-links" aria-label="Footer">
+      <a href="index.html#categories">Categories</a>
+      <a href="products.html">Coins</a>
+      <a href="cart.html">Cart</a>
+      <a href="index.html#how-it-works">How It Works</a>
+    </nav>
+
+    <p>Rare &amp; collectible coins</p>
+    <p class="copyright">© <span data-year>2026</span> NumisTrade. All rights reserved.</p>
+  </footer>
+
+  <!-- TOAST -->
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script src="js/ui.js"></script>
+  <script src="js/products.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/checkout.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

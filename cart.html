@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Your Cart | NumisTrade</title>
+  <meta name="description" content="Review items in your NumisTrade cart before checkout.">
+
+  <meta property="og:title" content="Your Cart | NumisTrade">
+  <meta property="og:description" content="Review your selected coins before checkout.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://numistrade.github.io/numistrade.io/cart.html">
+
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <nav class="nav" aria-label="Main navigation">
+
+      <a href="index.html" class="brand">
+        <span class="coin-logo" aria-hidden="true">N</span>
+        <span class="brand-text">
+          <span class="brand-name">NUMISTRADE</span>
+          <span class="brand-tagline">Coins • History • Collection</span>
+        </span>
+      </a>
+
+      <button type="button" class="menu-toggle" data-menu-toggle aria-expanded="false" aria-controls="nav-links" aria-label="Open menu">☰</button>
+
+      <div class="nav-links" id="nav-links">
+        <a href="index.html#categories">Categories</a>
+        <a href="products.html">Coins</a>
+        <a href="index.html#how-it-works">How It Works</a>
+      </div>
+
+      <a href="cart.html" class="cart-button" aria-current="page">🛒 Cart (<span data-cart-count>0</span>)</a>
+
+    </nav>
+  </header>
+
+  <main class="section">
+
+    <h1 class="page-title">Your Cart</h1>
+    <p class="page-subtitle">Review your coins before checkout.</p>
+
+    <div id="cart-empty" class="state-message" hidden>
+      Your cart is empty. <a href="products.html">Browse coins</a> to get started.
+    </div>
+
+    <div class="cart-layout" id="cart-layout" hidden>
+
+      <div>
+        <div class="cart-list" id="cart-items"></div>
+
+        <p class="hint">Delivery charge is calculated at checkout.</p>
+        <p><a href="products.html" class="btn btn-outline">Continue shopping</a></p>
+      </div>
+
+      <aside class="summary-card" aria-label="Order summary">
+        <h2>Order Summary</h2>
+
+        <div class="summary-row">
+          <span>Items (<span data-cart-count>0</span>)</span>
+          <span data-cart-subtotal>₹0</span>
+        </div>
+
+        <div class="summary-row">
+          <span>Delivery charge</span>
+          <span>At checkout</span>
+        </div>
+
+        <div class="summary-row summary-total">
+          <span>Subtotal</span>
+          <span data-cart-subtotal>₹0</span>
+        </div>
+
+        <a href="checkout.html" class="btn btn-gold btn-block">Proceed to Checkout</a>
+        <p class="hint hint-center">Final price and stock are confirmed by the store.</p>
+      </aside>
+
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <p><strong>NUMISTRADE</strong></p>
+    <p>Coins • History • Collection</p>
+
+    <nav class="site-footer-links" aria-label="Footer">
+      <a href="index.html#categories">Categories</a>
+      <a href="products.html">Coins</a>
+      <a href="cart.html">Cart</a>
+      <a href="index.html#how-it-works">How It Works</a>
+    </nav>
+
+    <p>Rare &amp; collectible coins</p>
+    <p class="copyright">© <span data-year>2026</span> NumisTrade. All rights reserved.</p>
+  </footer>
+
+  <!-- TOAST -->
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script src="js/ui.js"></script>
+  <script src="js/products.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

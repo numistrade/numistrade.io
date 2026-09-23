@@ -4,990 +4,194 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>NumisTrade | Rare & Collectible Coins</title>
-  <meta name="description" content="NumisTrade - Buy and collect rare, vintage and collectible coins.">
-
-  <style>
-    :root {
-      --navy: #101820;
-      --navy-2: #172532;
-      --gold: #c99a3e;
-      --gold-light: #e5c477;
-      --cream: #f7f3ea;
-      --white: #ffffff;
-      --text: #20252a;
-      --muted: #69727a;
-      --border: #e5e1d8;
-      --green: #18794e;
-      --shadow: 0 12px 35px rgba(16, 24, 32, 0.09);
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      background: #fff;
-      color: var(--text);
-      line-height: 1.6;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    button {
-      font: inherit;
-    }
-
-    /* HEADER */
-
-    header {
-      background: var(--navy);
-      color: white;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      box-shadow: 0 3px 15px rgba(0,0,0,0.15);
-    }
-
-    .nav {
-      max-width: 1200px;
-      margin: auto;
-      padding: 15px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .coin-logo {
-      width: 45px;
-      height: 45px;
-      border: 2px solid var(--gold-light);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--gold-light);
-      font-size: 21px;
-      font-weight: bold;
-      box-shadow: inset 0 0 0 3px rgba(201,154,62,0.15);
-    }
-
-    .brand-name {
-      font-family: Georgia, serif;
-      font-size: 24px;
-      letter-spacing: 1.5px;
-    }
-
-    .brand-tagline {
-      font-size: 10px;
-      color: var(--gold-light);
-      letter-spacing: 2px;
-      text-transform: uppercase;
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 25px;
-      font-size: 14px;
-    }
-
-    .nav-links a:hover {
-      color: var(--gold-light);
-    }
-
-    .cart-button {
-      background: var(--gold);
-      color: var(--navy);
-      padding: 9px 15px;
-      border-radius: 6px;
-      font-weight: bold;
-      border: none;
-      cursor: pointer;
-    }
-
-    /* HERO */
-
-    .hero {
-      background:
-        radial-gradient(circle at 80% 20%, rgba(201,154,62,0.18), transparent 30%),
-        linear-gradient(135deg, #101820, #1c2d3a);
-      color: white;
-      padding: 90px 20px;
-    }
-
-    .hero-inner {
-      max-width: 1200px;
-      margin: auto;
-      display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: 50px;
-      align-items: center;
-    }
-
-    .eyebrow {
-      color: var(--gold-light);
-      text-transform: uppercase;
-      letter-spacing: 3px;
-      font-size: 13px;
-      font-weight: bold;
-      margin-bottom: 15px;
-    }
-
-    .hero h1 {
-      font-family: Georgia, serif;
-      font-size: clamp(42px, 6vw, 70px);
-      line-height: 1.05;
-      margin-bottom: 22px;
-    }
-
-    .hero h1 span {
-      color: var(--gold-light);
-    }
-
-    .hero p {
-      max-width: 600px;
-      color: #d6dde2;
-      font-size: 18px;
-      margin-bottom: 30px;
-    }
-
-    .primary-button {
-      display: inline-block;
-      background: var(--gold);
-      color: var(--navy);
-      padding: 14px 24px;
-      border-radius: 7px;
-      font-weight: bold;
-      border: none;
-      cursor: pointer;
-    }
-
-    .primary-button:hover {
-      background: var(--gold-light);
-    }
-
-    .secondary-button {
-      display: inline-block;
-      border: 1px solid rgba(255,255,255,0.4);
-      color: white;
-      padding: 13px 23px;
-      border-radius: 7px;
-      font-weight: bold;
-      margin-left: 10px;
-    }
-
-    .hero-coin {
-      width: 270px;
-      height: 270px;
-      margin: auto;
-      border-radius: 50%;
-      border: 12px double var(--gold);
-      background: radial-gradient(circle, #d8b45b, #916d22 70%, #594113);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow:
-        0 20px 60px rgba(0,0,0,0.4),
-        inset 0 0 20px rgba(255,255,255,0.35);
-      color: #5b4212;
-      font-family: Georgia, serif;
-      font-size: 42px;
-      font-weight: bold;
-    }
-
-    /* GENERAL */
-
-    .section {
-      max-width: 1200px;
-      margin: auto;
-      padding: 75px 20px;
-    }
-
-    .section-heading {
-      text-align: center;
-      margin-bottom: 45px;
-    }
-
-    .section-heading h2 {
-      font-family: Georgia, serif;
-      font-size: 38px;
-      margin-bottom: 8px;
-    }
-
-    .section-heading p {
-      color: var(--muted);
-    }
-
-    /* CATEGORIES */
-
-    .categories {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-    }
-
-    .category {
-      background: var(--cream);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 30px 20px;
-      text-align: center;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-
-    .category:hover {
-      transform: translateY(-4px);
-      box-shadow: var(--shadow);
-      border-color: var(--gold);
-    }
-
-    .category-icon {
-      font-size: 34px;
-      margin-bottom: 10px;
-    }
-
-    .category h3 {
-      font-family: Georgia, serif;
-      font-size: 21px;
-      margin-bottom: 5px;
-    }
-
-    .category p {
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    /* PRODUCTS */
-
-    .products {
-      background: #faf9f6;
-    }
-
-    .product-grid {
-      max-width: 1200px;
-      margin: auto;
-      padding: 0 20px 75px;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 25px;
-    }
-
-    .product {
-      background: white;
-      border-radius: 12px;
-      overflow: hidden;
-      border: 1px solid var(--border);
-      box-shadow: 0 4px 15px rgba(0,0,0,0.04);
-      transition: 0.2s;
-    }
-
-    .product:hover {
-      transform: translateY(-4px);
-      box-shadow: var(--shadow);
-    }
-
-    .product-image {
-      height: 250px;
-      background:
-        radial-gradient(circle, #e3bd63 0 35%, #aa812e 36% 55%, #73531d 56% 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #594113;
-      font-family: Georgia, serif;
-      font-size: 26px;
-      position: relative;
-    }
-
-    .product-image::after {
-      content: "COIN";
-      width: 150px;
-      height: 150px;
-      border: 4px solid rgba(89,65,18,0.55);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .product-info {
-      padding: 20px;
-    }
-
-    .product-category {
-      color: var(--gold);
-      text-transform: uppercase;
-      font-size: 11px;
-      letter-spacing: 1px;
-      font-weight: bold;
-    }
-
-    .product h3 {
-      font-family: Georgia, serif;
-      font-size: 21px;
-      margin: 5px 0;
-    }
-
-    .product-description {
-      color: var(--muted);
-      font-size: 13px;
-      margin-bottom: 15px;
-    }
-
-    .product-bottom {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-    }
-
-    .price {
-      font-size: 20px;
-      font-weight: bold;
-    }
-
-    .buy {
-      background: var(--navy);
-      color: white;
-      border: none;
-      border-radius: 6px;
-      padding: 10px 14px;
-      cursor: pointer;
-      font-weight: bold;
-    }
-
-    .buy:hover {
-      background: var(--gold);
-      color: var(--navy);
-    }
-
-    /* HOW IT WORKS */
-
-    .steps {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 20px;
-    }
-
-    .step {
-      text-align: center;
-      padding: 20px;
-    }
-
-    .step-number {
-      width: 48px;
-      height: 48px;
-      margin: auto auto 15px;
-      border-radius: 50%;
-      background: var(--navy);
-      color: var(--gold-light);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-    }
-
-    .step h3 {
-      margin-bottom: 7px;
-      font-family: Georgia, serif;
-    }
-
-    .step p {
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    /* TRUST */
-
-    .trust {
-      background: var(--navy);
-      color: white;
-    }
-
-    .trust-grid {
-      max-width: 1200px;
-      margin: auto;
-      padding: 60px 20px;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 30px;
-      text-align: center;
-    }
-
-    .trust-item h3 {
-      color: var(--gold-light);
-      margin-bottom: 7px;
-    }
-
-    .trust-item p {
-      color: #c8d0d5;
-      font-size: 14px;
-    }
-
-    /* FOOTER */
-
-    footer {
-      background: #0b1116;
-      color: #aeb7bd;
-      padding: 35px 20px;
-      text-align: center;
-      font-size: 13px;
-    }
-
-    footer strong {
-      color: white;
-    }
-
-    /* CART MESSAGE */
-
-    #cartMessage {
-      position: fixed;
-      right: 20px;
-      bottom: 20px;
-      background: var(--navy);
-      color: white;
-      padding: 15px 20px;
-      border-left: 4px solid var(--gold);
-      border-radius: 6px;
-      box-shadow: var(--shadow);
-      display: none;
-      z-index: 2000;
-    }
-
-    /* MOBILE */
-
-    @media (max-width: 800px) {
-
-      .nav {
-        flex-wrap: wrap;
-      }
-
-      .nav-links {
-        display: none;
-      }
-
-      .hero {
-        padding: 65px 20px;
-      }
-
-      .hero-inner {
-        grid-template-columns: 1fr;
-        text-align: center;
-      }
-
-      .hero p {
-        margin-left: auto;
-        margin-right: auto;
-      }
-
-      .hero-coin {
-        width: 210px;
-        height: 210px;
-      }
-
-      .categories {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .product-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .steps {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .trust-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    @media (max-width: 500px) {
-
-      .categories {
-        grid-template-columns: 1fr;
-      }
-
-      .steps {
-        grid-template-columns: 1fr;
-      }
-
-      .brand-name {
-        font-size: 20px;
-      }
-
-      .secondary-button {
-        display: block;
-        margin: 12px 0 0;
-      }
-    }
-  </style>
+  <title>NumisTrade | Rare &amp; Collectible Coins</title>
+  <meta name="description" content="NumisTrade – browse and collect rare, vintage and collectible coins from India and around the world. Coins, history and collection.">
+
+  <meta property="og:title" content="NumisTrade | Rare &amp; Collectible Coins">
+  <meta property="og:description" content="Discover coins with history. Collectible coins from India and around the world.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://numistrade.github.io/numistrade.io/">
+
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
 </head>
 
 <body>
 
   <!-- HEADER -->
+  <header class="site-header">
+    <nav class="nav" aria-label="Main navigation">
 
-  <header>
-    <nav class="nav">
-
-      <a href="#" class="brand">
-
-        <div class="coin-logo">N</div>
-
-        <div>
-          <div class="brand-name">NUMISTRADE</div>
-          <div class="brand-tagline">Coins • History • Collection</div>
-        </div>
-
+      <a href="index.html" class="brand">
+        <span class="coin-logo" aria-hidden="true">N</span>
+        <span class="brand-text">
+          <span class="brand-name">NUMISTRADE</span>
+          <span class="brand-tagline">Coins • History • Collection</span>
+        </span>
       </a>
 
-      <div class="nav-links">
-        <a href="#categories">Categories</a>
-        <a href="#coins">Coins</a>
-        <a href="#how-it-works">How It Works</a>
+      <button type="button" class="menu-toggle" data-menu-toggle aria-expanded="false" aria-controls="nav-links" aria-label="Open menu">☰</button>
+
+      <div class="nav-links" id="nav-links">
+        <a href="index.html#categories">Categories</a>
+        <a href="products.html">Coins</a>
+        <a href="index.html#how-it-works">How It Works</a>
       </div>
 
-      <button class="cart-button" onclick="showCart()">
-        🛒 Cart (<span id="cartCount">0</span>)
-      </button>
+      <a href="cart.html" class="cart-button">🛒 Cart (<span data-cart-count>0</span>)</a>
 
     </nav>
   </header>
 
+  <main>
 
-  <!-- HERO -->
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-inner">
 
-  <section class="hero">
+        <div>
+          <div class="eyebrow">Explore Numismatics</div>
 
-    <div class="hero-inner">
+          <h1>Discover coins<br>with <span>history.</span></h1>
 
-      <div>
+          <p>
+            Explore collectible coins from India and around the world —
+            vintage, rare and one-of-a-kind pieces. Build your collection
+            one coin at a time.
+          </p>
 
-        <div class="eyebrow">
-          Explore Numismatics
+          <div class="hero-actions">
+            <a href="products.html" class="btn btn-gold">Browse Coins</a>
+            <a href="#categories" class="btn btn-outline-light">Explore Categories</a>
+          </div>
         </div>
 
-        <h1>
-          Discover coins<br>
-          with <span>history.</span>
-        </h1>
-
-        <p>
-          Explore vintage, rare and collectible coins from India
-          and around the world. Build your collection one piece at a time.
-        </p>
-
-        <a href="#coins" class="primary-button">
-          Browse Coins
-        </a>
-
-        <a href="#categories" class="secondary-button">
-          Explore Categories
-        </a>
+        <div class="hero-coin" aria-hidden="true">NT</div>
 
       </div>
+    </section>
 
-      <div class="hero-coin">
-        NT
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- CATEGORIES -->
-
-  <section class="section" id="categories">
-
-    <div class="section-heading">
-
-      <h2>Browse Categories</h2>
-
-      <p>
-        Find coins by period and collecting interest.
-      </p>
-
-    </div>
-
-    <div class="categories">
-
-      <div class="category">
-        <div class="category-icon">🏛️</div>
-        <h3>Ancient Coins</h3>
-        <p>Historic coins from earlier civilizations</p>
-      </div>
-
-      <div class="category">
-        <div class="category-icon">👑</div>
-        <h3>British India</h3>
-        <p>Coins from the British Indian period</p>
-      </div>
-
-      <div class="category">
-        <div class="category-icon">🇮🇳</div>
-        <h3>Republic India</h3>
-        <p>Coins issued after Indian independence</p>
-      </div>
-
-      <div class="category">
-        <div class="category-icon">🌎</div>
-        <h3>World Coins</h3>
-        <p>Collectible coins from around the world</p>
-      </div>
-
-      <div class="category">
-        <div class="category-icon">🏅</div>
-        <h3>Commemorative</h3>
-        <p>Special issues and commemorative coins</p>
-      </div>
-
-      <div class="category">
-        <div class="category-icon">✨</div>
-        <h3>Other Collectibles</h3>
-        <p>Tokens, medals and related collectibles</p>
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- PRODUCTS -->
-
-  <section class="products" id="coins">
-
-    <div class="section">
-
+    <!-- CATEGORIES -->
+    <section class="section" id="categories">
       <div class="section-heading">
-
-        <h2>Featured Coins</h2>
-
-        <p>
-          Sample listings — we'll replace these with your actual inventory.
-        </p>
-
+        <h2>Browse Categories</h2>
+        <p>Find coins by period and collecting interest.</p>
       </div>
 
-    </div>
+      <div class="categories" id="category-grid">
+        <p class="state-message">Loading categories…</p>
+      </div>
+    </section>
 
-    <div class="product-grid">
-
-      <!-- PRODUCT 1 -->
-
-      <article class="product">
-
-        <div class="product-image"></div>
-
-        <div class="product-info">
-
-          <div class="product-category">
-            Republic India
-          </div>
-
-          <h3>Sample Indian Coin</h3>
-
-          <p class="product-description">
-            Add your coin description, year and condition here.
-          </p>
-
-          <div class="product-bottom">
-
-            <div class="price">
-              ₹500
-            </div>
-
-            <button
-              class="buy"
-              onclick="addToCart('Sample Indian Coin', 500)">
-              Buy
-            </button>
-
-          </div>
-
+    <!-- FEATURED PRODUCTS -->
+    <section class="products-band" id="coins">
+      <div class="section">
+        <div class="section-heading">
+          <h2>Featured Coins</h2>
+          <p>Sample listings — we will replace these with your actual inventory.</p>
         </div>
 
-      </article>
-
-
-      <!-- PRODUCT 2 -->
-
-      <article class="product">
-
-        <div class="product-image"></div>
-
-        <div class="product-info">
-
-          <div class="product-category">
-            British India
-          </div>
-
-          <h3>Sample British India Coin</h3>
-
-          <p class="product-description">
-            Add the coin year, denomination and condition.
-          </p>
-
-          <div class="product-bottom">
-
-            <div class="price">
-              ₹750
-            </div>
-
-            <button
-              class="buy"
-              onclick="addToCart('Sample British India Coin', 750)">
-              Buy
-            </button>
-
-          </div>
-
+        <div class="product-grid" id="featured-products">
+          <p class="state-message">Loading coins…</p>
         </div>
 
-      </article>
+        <p class="section-footer-action">
+          <a href="products.html" class="btn btn-outline">View all coins</a>
+        </p>
+      </div>
+    </section>
 
+    <!-- HOW IT WORKS -->
+    <section class="section" id="how-it-works">
+      <div class="section-heading">
+        <h2>How It Works</h2>
+        <p>A simple buying process.</p>
+      </div>
 
-      <!-- PRODUCT 3 -->
-
-      <article class="product">
-
-        <div class="product-image"></div>
-
-        <div class="product-info">
-
-          <div class="product-category">
-            Commemorative
-          </div>
-
-          <h3>Sample Commemorative Coin</h3>
-
-          <p class="product-description">
-            Add your coin details and collecting information.
-          </p>
-
-          <div class="product-bottom">
-
-            <div class="price">
-              ₹1,000
-            </div>
-
-            <button
-              class="buy"
-              onclick="addToCart('Sample Commemorative Coin', 1000)">
-              Buy
-            </button>
-
-          </div>
-
+      <div class="steps">
+        <div class="step">
+          <div class="step-number">1</div>
+          <h3>Choose a Coin</h3>
+          <p>Browse categories and select the coins you want.</p>
         </div>
 
-      </article>
+        <div class="step">
+          <div class="step-number">2</div>
+          <h3>Place Order</h3>
+          <p>Enter your contact and delivery details.</p>
+        </div>
 
-    </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <h3>Pay by UPI</h3>
+          <p>Complete payment using the UPI QR code.</p>
+        </div>
 
-  </section>
+        <div class="step">
+          <div class="step-number">4</div>
+          <h3>Payment Verified</h3>
+          <p>The storechecks and verifies your payment.</p>
+        </div>
 
+        <div class="step">
+          <div class="step-number">5</div>
+          <h3>Order Fulfilled</h3>
+          <p>The coin is packed and prepared for dispatch.</p>
+        </div>
 
-  <!-- HOW IT WORKS -->
-
-  <section class="section" id="how-it-works">
-
-    <div class="section-heading">
-
-      <h2>How It Works</h2>
-
-      <p>
-        A simple buying process.
-      </p>
-
-    </div>
-
-    <div class="steps">
-
-      <div class="step">
-
-        <div class="step-number">1</div>
-
-        <h3>Choose a Coin</h3>
-
-        <p>
-          Browse our categories and select a coin.
-        </p>
-
+        <div class="step">
+          <div class="step-number">6</div>
+          <h3>Shipment Dispatched</h3>
+          <p>Your order ships with tracking details.</p>
+        </div>
       </div>
+    </section>
 
-      <div class="step">
+    <!-- TRUST -->
+    <section class="trust">
+      <div class="trust-grid">
+        <div class="trust-item">
+          <h3>🪙 Collectible Coins</h3>
+          <p>Browse coins organized for collectors.</p>
+        </div>
 
-        <div class="step-number">2</div>
+        <div class="trust-item">
+          <h3>📱 Simple UPI Payment</h3>
+          <p>Pay conveniently using UPI.</p>
+        </div>
 
-        <h3>Place Order</h3>
-
-        <p>
-          Enter your contact and delivery details.
-        </p>
-
+        <div class="trust-item">
+          <h3>📦 Manual Fulfillment</h3>
+          <p>Orders are checked before dispatch.</p>
+        </div>
       </div>
+    </section>
 
-      <div class="step">
-
-        <div class="step-number">3</div>
-
-        <h3>Pay by UPI</h3>
-
-        <p>
-          Complete payment using the UPI QR code.
-        </p>
-
-      </div>
-
-      <div class="step">
-
-        <div class="step-number">4</div>
-
-        <h3>We Ship</h3>
-
-        <p>
-          We verify your payment and fulfill your order.
-        </p>
-
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- TRUST -->
-
-  <section class="trust">
-
-    <div class="trust-grid">
-
-      <div class="trust-item">
-
-        <h3>🪙 Collectible Coins</h3>
-
-        <p>
-          Browse coins organized for collectors.
-        </p>
-
-      </div>
-
-      <div class="trust-item">
-
-        <h3>📱 Simple UPI Payment</h3>
-
-        <p>
-          Pay conveniently using UPI.
-        </p>
-
-      </div>
-
-      <div class="trust-item">
-
-        <h3>📦 Manual Fulfillment</h3>
-
-        <p>
-          Orders are checked before dispatch.
-        </p>
-
-      </div>
-
-    </div>
-
-  </section>
-
+  </main>
 
   <!-- FOOTER -->
+  <footer class="site-footer">
+    <p><strong>NUMISTRADE</strong></p>
+    <p>Coins • History • Collection</p>
 
-  <footer>
+    <nav class="site-footer-links" aria-label="Footer">
+      <a href="index.html#categories">Categories</a>
+      <a href="products.html">Coins</a>
+      <a href="cart.html">Cart</a>
+      <a href="index.html#how-it-works">How It Works</a>
+    </nav>
 
-    <p>
-      <strong>NUMISTRADE</strong>
-    </p>
-
-    <p>
-      Rare & collectible coins
-    </p>
-
-    <p style="margin-top: 12px;">
-      © 2026 NumisTrade. All rights reserved.
-    </p>
-
+    <p>Rare &amp; collectible coins</p>
+    <p class="copyright">© <span data-year>2026</span> NumisTrade. All rights reserved.</p>
   </footer>
 
+  <!-- TOAST -->
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
-  <!-- CART MESSAGE -->
-
-  <div id="cartMessage">
-    Added to cart.
-  </div>
-
-
-  <script>
-
-    let cartCount = 0;
-
-    function addToCart(name, price) {
-
-      cartCount++;
-
-      document.getElementById("cartCount").textContent = cartCount;
-
-      const message = document.getElementById("cartMessage");
-
-      message.textContent =
-        name + " added to cart.";
-
-      message.style.display = "block";
-
-      setTimeout(function() {
-        message.style.display = "none";
-      }, 2500);
-
-    }
-
-
-    function showCart() {
-
-      if (cartCount === 0) {
-
-        alert("Your cart is empty.");
-
-      } else {
-
-        alert(
-          "You have " +
-          cartCount +
-          " item(s) in your cart.\n\n" +
-          "The complete checkout system will be connected in the next step."
-        );
-
-      }
-
-    }
-
-  </script>
-
+  <script src="js/ui.js"></script>
+  <script src="js/products.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/app.js"></script>
 </body>
 </html>
