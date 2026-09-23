@@ -3,93 +3,991 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Coin Shop</title>
+
+  <title>NumisTrade | Rare & Collectible Coins</title>
+  <meta name="description" content="NumisTrade - Buy and collect rare, vintage and collectible coins.">
 
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      background: #f5f5f5;
-      color: #222;
+    :root {
+      --navy: #101820;
+      --navy-2: #172532;
+      --gold: #c99a3e;
+      --gold-light: #e5c477;
+      --cream: #f7f3ea;
+      --white: #ffffff;
+      --text: #20252a;
+      --muted: #69727a;
+      --border: #e5e1d8;
+      --green: #18794e;
+      --shadow: 0 12px 35px rgba(16, 24, 32, 0.09);
     }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #fff;
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    /* HEADER */
 
     header {
-      background: #222;
+      background: var(--navy);
       color: white;
-      padding: 25px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 3px 15px rgba(0,0,0,0.15);
+    }
+
+    .nav {
+      max-width: 1200px;
+      margin: auto;
+      padding: 15px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .coin-logo {
+      width: 45px;
+      height: 45px;
+      border: 2px solid var(--gold-light);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold-light);
+      font-size: 21px;
+      font-weight: bold;
+      box-shadow: inset 0 0 0 3px rgba(201,154,62,0.15);
+    }
+
+    .brand-name {
+      font-family: Georgia, serif;
+      font-size: 24px;
+      letter-spacing: 1.5px;
+    }
+
+    .brand-tagline {
+      font-size: 10px;
+      color: var(--gold-light);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+      font-size: 14px;
+    }
+
+    .nav-links a:hover {
+      color: var(--gold-light);
+    }
+
+    .cart-button {
+      background: var(--gold);
+      color: var(--navy);
+      padding: 9px 15px;
+      border-radius: 6px;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+    }
+
+    /* HERO */
+
+    .hero {
+      background:
+        radial-gradient(circle at 80% 20%, rgba(201,154,62,0.18), transparent 30%),
+        linear-gradient(135deg, #101820, #1c2d3a);
+      color: white;
+      padding: 90px 20px;
+    }
+
+    .hero-inner {
+      max-width: 1200px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 50px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      color: var(--gold-light);
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      font-size: 13px;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    .hero h1 {
+      font-family: Georgia, serif;
+      font-size: clamp(42px, 6vw, 70px);
+      line-height: 1.05;
+      margin-bottom: 22px;
+    }
+
+    .hero h1 span {
+      color: var(--gold-light);
+    }
+
+    .hero p {
+      max-width: 600px;
+      color: #d6dde2;
+      font-size: 18px;
+      margin-bottom: 30px;
+    }
+
+    .primary-button {
+      display: inline-block;
+      background: var(--gold);
+      color: var(--navy);
+      padding: 14px 24px;
+      border-radius: 7px;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+    }
+
+    .primary-button:hover {
+      background: var(--gold-light);
+    }
+
+    .secondary-button {
+      display: inline-block;
+      border: 1px solid rgba(255,255,255,0.4);
+      color: white;
+      padding: 13px 23px;
+      border-radius: 7px;
+      font-weight: bold;
+      margin-left: 10px;
+    }
+
+    .hero-coin {
+      width: 270px;
+      height: 270px;
+      margin: auto;
+      border-radius: 50%;
+      border: 12px double var(--gold);
+      background: radial-gradient(circle, #d8b45b, #916d22 70%, #594113);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow:
+        0 20px 60px rgba(0,0,0,0.4),
+        inset 0 0 20px rgba(255,255,255,0.35);
+      color: #5b4212;
+      font-family: Georgia, serif;
+      font-size: 42px;
+      font-weight: bold;
+    }
+
+    /* GENERAL */
+
+    .section {
+      max-width: 1200px;
+      margin: auto;
+      padding: 75px 20px;
+    }
+
+    .section-heading {
       text-align: center;
+      margin-bottom: 45px;
     }
 
-    .container {
-      max-width: 1000px;
-      margin: 30px auto;
-      padding: 20px;
+    .section-heading h2 {
+      font-family: Georgia, serif;
+      font-size: 38px;
+      margin-bottom: 8px;
     }
 
-    .coin {
+    .section-heading p {
+      color: var(--muted);
+    }
+
+    /* CATEGORIES */
+
+    .categories {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .category {
+      background: var(--cream);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 30px 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .category:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow);
+      border-color: var(--gold);
+    }
+
+    .category-icon {
+      font-size: 34px;
+      margin-bottom: 10px;
+    }
+
+    .category h3 {
+      font-family: Georgia, serif;
+      font-size: 21px;
+      margin-bottom: 5px;
+    }
+
+    .category p {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    /* PRODUCTS */
+
+    .products {
+      background: #faf9f6;
+    }
+
+    .product-grid {
+      max-width: 1200px;
+      margin: auto;
+      padding: 0 20px 75px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+    }
+
+    .product {
       background: white;
       border-radius: 12px;
-      padding: 20px;
-      margin-bottom: 20px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+      transition: 0.2s;
     }
 
-    .coin img {
-      width: 200px;
-      height: 200px;
-      object-fit: cover;
-      border-radius: 10px;
+    .product:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow);
+    }
+
+    .product-image {
+      height: 250px;
+      background:
+        radial-gradient(circle, #e3bd63 0 35%, #aa812e 36% 55%, #73531d 56% 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #594113;
+      font-family: Georgia, serif;
+      font-size: 26px;
+      position: relative;
+    }
+
+    .product-image::after {
+      content: "COIN";
+      width: 150px;
+      height: 150px;
+      border: 4px solid rgba(89,65,18,0.55);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .product-info {
+      padding: 20px;
+    }
+
+    .product-category {
+      color: var(--gold);
+      text-transform: uppercase;
+      font-size: 11px;
+      letter-spacing: 1px;
+      font-weight: bold;
+    }
+
+    .product h3 {
+      font-family: Georgia, serif;
+      font-size: 21px;
+      margin: 5px 0;
+    }
+
+    .product-description {
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 15px;
+    }
+
+    .product-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
     }
 
     .price {
-      font-size: 24px;
+      font-size: 20px;
       font-weight: bold;
-      color: #087f23;
     }
 
-    .buy-button {
-      display: inline-block;
-      background: #ff9800;
+    .buy {
+      background: var(--navy);
       color: white;
-      padding: 12px 25px;
-      border-radius: 8px;
-      text-decoration: none;
+      border: none;
+      border-radius: 6px;
+      padding: 10px 14px;
+      cursor: pointer;
       font-weight: bold;
-      margin-top: 10px;
     }
 
-    .buy-button:hover {
-      background: #e68900;
+    .buy:hover {
+      background: var(--gold);
+      color: var(--navy);
+    }
+
+    /* HOW IT WORKS */
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .step {
+      text-align: center;
+      padding: 20px;
+    }
+
+    .step-number {
+      width: 48px;
+      height: 48px;
+      margin: auto auto 15px;
+      border-radius: 50%;
+      background: var(--navy);
+      color: var(--gold-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+
+    .step h3 {
+      margin-bottom: 7px;
+      font-family: Georgia, serif;
+    }
+
+    .step p {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    /* TRUST */
+
+    .trust {
+      background: var(--navy);
+      color: white;
+    }
+
+    .trust-grid {
+      max-width: 1200px;
+      margin: auto;
+      padding: 60px 20px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+      text-align: center;
+    }
+
+    .trust-item h3 {
+      color: var(--gold-light);
+      margin-bottom: 7px;
+    }
+
+    .trust-item p {
+      color: #c8d0d5;
+      font-size: 14px;
+    }
+
+    /* FOOTER */
+
+    footer {
+      background: #0b1116;
+      color: #aeb7bd;
+      padding: 35px 20px;
+      text-align: center;
+      font-size: 13px;
+    }
+
+    footer strong {
+      color: white;
+    }
+
+    /* CART MESSAGE */
+
+    #cartMessage {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      background: var(--navy);
+      color: white;
+      padding: 15px 20px;
+      border-left: 4px solid var(--gold);
+      border-radius: 6px;
+      box-shadow: var(--shadow);
+      display: none;
+      z-index: 2000;
+    }
+
+    /* MOBILE */
+
+    @media (max-width: 800px) {
+
+      .nav {
+        flex-wrap: wrap;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .hero {
+        padding: 65px 20px;
+      }
+
+      .hero-inner {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .hero p {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .hero-coin {
+        width: 210px;
+        height: 210px;
+      }
+
+      .categories {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .product-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .steps {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .trust-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 500px) {
+
+      .categories {
+        grid-template-columns: 1fr;
+      }
+
+      .steps {
+        grid-template-columns: 1fr;
+      }
+
+      .brand-name {
+        font-size: 20px;
+      }
+
+      .secondary-button {
+        display: block;
+        margin: 12px 0 0;
+      }
     }
   </style>
 </head>
 
 <body>
 
-<header>
-  <h1>🪙 My Coin Shop</h1>
-  <p>Buy collectible coins</p>
-</header>
+  <!-- HEADER -->
 
-<div class="container">
+  <header>
+    <nav class="nav">
 
-  <div class="coin">
-    <img src="https://via.placeholder.com/200" alt="Coin">
+      <a href="#" class="brand">
 
-    <h2>Sample Coin</h2>
+        <div class="coin-logo">N</div>
 
-    <p>Beautiful collectible coin.</p>
+        <div>
+          <div class="brand-name">NUMISTRADE</div>
+          <div class="brand-tagline">Coins • History • Collection</div>
+        </div>
 
-    <p class="price">₹500</p>
+      </a>
 
-    <p>Available: 5</p>
+      <div class="nav-links">
+        <a href="#categories">Categories</a>
+        <a href="#coins">Coins</a>
+        <a href="#how-it-works">How It Works</a>
+      </div>
 
-    <a class="buy-button" href="#">
-      Buy Now
-    </a>
+      <button class="cart-button" onclick="showCart()">
+        🛒 Cart (<span id="cartCount">0</span>)
+      </button>
+
+    </nav>
+  </header>
+
+
+  <!-- HERO -->
+
+  <section class="hero">
+
+    <div class="hero-inner">
+
+      <div>
+
+        <div class="eyebrow">
+          Explore Numismatics
+        </div>
+
+        <h1>
+          Discover coins<br>
+          with <span>history.</span>
+        </h1>
+
+        <p>
+          Explore vintage, rare and collectible coins from India
+          and around the world. Build your collection one piece at a time.
+        </p>
+
+        <a href="#coins" class="primary-button">
+          Browse Coins
+        </a>
+
+        <a href="#categories" class="secondary-button">
+          Explore Categories
+        </a>
+
+      </div>
+
+      <div class="hero-coin">
+        NT
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- CATEGORIES -->
+
+  <section class="section" id="categories">
+
+    <div class="section-heading">
+
+      <h2>Browse Categories</h2>
+
+      <p>
+        Find coins by period and collecting interest.
+      </p>
+
+    </div>
+
+    <div class="categories">
+
+      <div class="category">
+        <div class="category-icon">🏛️</div>
+        <h3>Ancient Coins</h3>
+        <p>Historic coins from earlier civilizations</p>
+      </div>
+
+      <div class="category">
+        <div class="category-icon">👑</div>
+        <h3>British India</h3>
+        <p>Coins from the British Indian period</p>
+      </div>
+
+      <div class="category">
+        <div class="category-icon">🇮🇳</div>
+        <h3>Republic India</h3>
+        <p>Coins issued after Indian independence</p>
+      </div>
+
+      <div class="category">
+        <div class="category-icon">🌎</div>
+        <h3>World Coins</h3>
+        <p>Collectible coins from around the world</p>
+      </div>
+
+      <div class="category">
+        <div class="category-icon">🏅</div>
+        <h3>Commemorative</h3>
+        <p>Special issues and commemorative coins</p>
+      </div>
+
+      <div class="category">
+        <div class="category-icon">✨</div>
+        <h3>Other Collectibles</h3>
+        <p>Tokens, medals and related collectibles</p>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- PRODUCTS -->
+
+  <section class="products" id="coins">
+
+    <div class="section">
+
+      <div class="section-heading">
+
+        <h2>Featured Coins</h2>
+
+        <p>
+          Sample listings — we'll replace these with your actual inventory.
+        </p>
+
+      </div>
+
+    </div>
+
+    <div class="product-grid">
+
+      <!-- PRODUCT 1 -->
+
+      <article class="product">
+
+        <div class="product-image"></div>
+
+        <div class="product-info">
+
+          <div class="product-category">
+            Republic India
+          </div>
+
+          <h3>Sample Indian Coin</h3>
+
+          <p class="product-description">
+            Add your coin description, year and condition here.
+          </p>
+
+          <div class="product-bottom">
+
+            <div class="price">
+              ₹500
+            </div>
+
+            <button
+              class="buy"
+              onclick="addToCart('Sample Indian Coin', 500)">
+              Buy
+            </button>
+
+          </div>
+
+        </div>
+
+      </article>
+
+
+      <!-- PRODUCT 2 -->
+
+      <article class="product">
+
+        <div class="product-image"></div>
+
+        <div class="product-info">
+
+          <div class="product-category">
+            British India
+          </div>
+
+          <h3>Sample British India Coin</h3>
+
+          <p class="product-description">
+            Add the coin year, denomination and condition.
+          </p>
+
+          <div class="product-bottom">
+
+            <div class="price">
+              ₹750
+            </div>
+
+            <button
+              class="buy"
+              onclick="addToCart('Sample British India Coin', 750)">
+              Buy
+            </button>
+
+          </div>
+
+        </div>
+
+      </article>
+
+
+      <!-- PRODUCT 3 -->
+
+      <article class="product">
+
+        <div class="product-image"></div>
+
+        <div class="product-info">
+
+          <div class="product-category">
+            Commemorative
+          </div>
+
+          <h3>Sample Commemorative Coin</h3>
+
+          <p class="product-description">
+            Add your coin details and collecting information.
+          </p>
+
+          <div class="product-bottom">
+
+            <div class="price">
+              ₹1,000
+            </div>
+
+            <button
+              class="buy"
+              onclick="addToCart('Sample Commemorative Coin', 1000)">
+              Buy
+            </button>
+
+          </div>
+
+        </div>
+
+      </article>
+
+    </div>
+
+  </section>
+
+
+  <!-- HOW IT WORKS -->
+
+  <section class="section" id="how-it-works">
+
+    <div class="section-heading">
+
+      <h2>How It Works</h2>
+
+      <p>
+        A simple buying process.
+      </p>
+
+    </div>
+
+    <div class="steps">
+
+      <div class="step">
+
+        <div class="step-number">1</div>
+
+        <h3>Choose a Coin</h3>
+
+        <p>
+          Browse our categories and select a coin.
+        </p>
+
+      </div>
+
+      <div class="step">
+
+        <div class="step-number">2</div>
+
+        <h3>Place Order</h3>
+
+        <p>
+          Enter your contact and delivery details.
+        </p>
+
+      </div>
+
+      <div class="step">
+
+        <div class="step-number">3</div>
+
+        <h3>Pay by UPI</h3>
+
+        <p>
+          Complete payment using the UPI QR code.
+        </p>
+
+      </div>
+
+      <div class="step">
+
+        <div class="step-number">4</div>
+
+        <h3>We Ship</h3>
+
+        <p>
+          We verify your payment and fulfill your order.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- TRUST -->
+
+  <section class="trust">
+
+    <div class="trust-grid">
+
+      <div class="trust-item">
+
+        <h3>🪙 Collectible Coins</h3>
+
+        <p>
+          Browse coins organized for collectors.
+        </p>
+
+      </div>
+
+      <div class="trust-item">
+
+        <h3>📱 Simple UPI Payment</h3>
+
+        <p>
+          Pay conveniently using UPI.
+        </p>
+
+      </div>
+
+      <div class="trust-item">
+
+        <h3>📦 Manual Fulfillment</h3>
+
+        <p>
+          Orders are checked before dispatch.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- FOOTER -->
+
+  <footer>
+
+    <p>
+      <strong>NUMISTRADE</strong>
+    </p>
+
+    <p>
+      Rare & collectible coins
+    </p>
+
+    <p style="margin-top: 12px;">
+      © 2026 NumisTrade. All rights reserved.
+    </p>
+
+  </footer>
+
+
+  <!-- CART MESSAGE -->
+
+  <div id="cartMessage">
+    Added to cart.
   </div>
 
-</div>
+
+  <script>
+
+    let cartCount = 0;
+
+    function addToCart(name, price) {
+
+      cartCount++;
+
+      document.getElementById("cartCount").textContent = cartCount;
+
+      const message = document.getElementById("cartMessage");
+
+      message.textContent =
+        name + " added to cart.";
+
+      message.style.display = "block";
+
+      setTimeout(function() {
+        message.style.display = "none";
+      }, 2500);
+
+    }
+
+
+    function showCart() {
+
+      if (cartCount === 0) {
+
+        alert("Your cart is empty.");
+
+      } else {
+
+        alert(
+          "You have " +
+          cartCount +
+          " item(s) in your cart.\n\n" +
+          "The complete checkout system will be connected in the next step."
+        );
+
+      }
+
+    }
+
+  </script>
 
 </body>
 </html>
