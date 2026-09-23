@@ -61,20 +61,36 @@ window.Numis = window.Numis || {};
     );
   }
 
+  function fetchStaticProducts() {
+    return fetch("data/products.json", { cache: "no-cache" })
+      .then(function (response) {
+        if (!response.ok) throw new Error("HTTP " + response.status);
+        return response.json();
+      })
+      .then(function (data) {
+        var list = Array.isArray(data) ? data : data.products || [];
+        return list.filter(function (product) {
+          return product && product.active !== false;
+        });
+      });
+  }
+
   function loadProducts() {
     if (productsCache) return Promise.resolve(productsCache);
     if (!productsPromise) {
-      productsPromise = fetch("data/products.json", { cache: "no-cache" })
-        .then(function (response) {
-          if (!response.ok) throw new Error("HTTP " + response.status);
-          return response.json();
+      // Backend first (authoritative inventory). Falls back to the static file
+      // when the API is not configured or unreachable (e.g. GitHub Pages).
+      var fromApi =
+        Numis.api && Numis.api.canUseApi()
+          ? Numis.api.listProducts()
+          : Promise.reject(new Error("API not configured"));
+      productsPromise = fromApi
+        .catch(function () {
+          return fetchStaticProducts();
         })
-        .then(function (data) {
-          var list = Array.isArray(data) ? data : data.products || [];
-          productsCache = list.filter(function (product) {
-            return product && product.active !== false;
-          });
-          return productsCache;
+        .then(function (list) {
+          productsCache = list;
+          return list;
         })
         .catch(function (error) {
           productsPromise = null;

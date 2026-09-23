@@ -208,12 +208,61 @@ window.Numis = window.Numis || {};
         return;
       }
 
-      var now = new Date().toISOString();
-      var subtotal = Numis.cart.subtotal();
-      var fee = shippingFee(subtotal);
+      function placeDemoOrder() {
+        // Demo mode (no backend reachable): build a local order and store it in
+        // this browser tab for the confirmation page. BACKEND REQUIRED for real
+        // orders — prices/inventory here are not authoritative.
+        var now = new Date().toISOString();
+        var subtotal = Numis.cart.subtotal();
+        var fee = shippingFee(subtotal);
 
-      var order = {
-        orderId: generateOrderId(),
+        var order = {
+          source: "demo",
+          orderId: generateOrderId(),
+          customer: {
+            name: form.elements.fullName.value.trim(),
+            phone: form.elements.phone.value.trim(),
+            email: form.elements.email.value.trim()
+          },
+          shipping: {
+            address: form.elements.address.value.trim(),
+            city: form.elements.city.value.trim(),
+            state: form.elements.state.value.trim(),
+            postalCode: form.elements.postalCode.value.trim(),
+            country: form.elements.country.value
+          },
+          items: items.map(function (item) {
+            return {
+              productId: item.id,
+              name: item.name,
+              price: Number(item.price) || 0,
+              qty: Number(item.qty) || 1,
+              lineTotal: (Number(item.price) || 0) * (Number(item.qty) || 1)
+            };
+          }),
+          subtotal: subtotal,
+          shippingFee: fee,
+          total: subtotal + fee,
+          payment: {
+            method: "UPI",
+            status: "pending",
+            reference: ""
+          },
+          fulfillment: {
+            status: "pending",
+            trackingNumber: "",
+            carrier: ""
+          },
+          createdAt: now,
+          updatedAt: now
+        };
+
+        saveActiveOrder(order);
+        Numis.cart.clear();
+        window.location.href = "order-success.html";
+      }
+
+      var payload = {
         customer: {
           name: form.elements.fullName.value.trim(),
           phone: form.elements.phone.value.trim(),
@@ -226,37 +275,37 @@ window.Numis = window.Numis || {};
           postalCode: form.elements.postalCode.value.trim(),
           country: form.elements.country.value
         },
+        // Only product ids + quantities are sent. The backend computes prices,
+        // totals and stock — the browser does not decide those (security).
         items: items.map(function (item) {
-          return {
-            productId: item.id,
-            name: item.name,
-            price: Number(item.price) || 0,
-            qty: Number(item.qty) || 1,
-            lineTotal: (Number(item.price) || 0) * (Number(item.qty) || 1)
-          };
-        }),
-        subtotal: subtotal,
-        shippingFee: fee,
-        total: subtotal + fee,
-        payment: {
-          method: "UPI",
-          status: "pending",
-          reference: ""
-        },
-        fulfillment: {
-          status: "pending",
-          trackingNumber: "",
-          carrier: ""
-        },
-        createdAt: now,
-        updatedAt: now
+          return { productId: item.id, qty: Number(item.qty) || 1 };
+        })
       };
 
-      // Prototype only: stored in this browser tab so the confirmation page can
-      // display it. BACKEND REQUIRED: the backend must create and store orders.
-      saveActiveOrder(order);
-      Numis.cart.clear();
-      window.location.href = "order-success.html";
+      if (Numis.api && Numis.api.canUseApi()) {
+        Numis.api
+          .createOrder(payload)
+          .then(function (order) {
+            order.source = "api";
+            saveActiveOrder(order);
+            Numis.cart.clear();
+            window.location.href = "order-success.html";
+          })
+          .catch(function (error) {
+            // A server-side rejection (validation/stock) is authoritative:
+            // keep the cart and show the store's message. Network failures
+            // fall back to a local demo order so the flow stays testable.
+            if (error && error.status >= 400 && error.status < 500) {
+              Numis.ui.showToast(error.message || "The store rejected this order.");
+              return;
+            }
+            console.warn("Backend not reachable — using a local demo order.", error);
+            Numis.ui.showToast("Store server not reachable — order saved as a local demo.");
+            placeDemoOrder();
+          });
+      } else {
+        placeDemoOrder();
+      }
     });
   }
 
@@ -293,7 +342,7 @@ window.Numis = window.Numis || {};
     var root = document.getElementById("order-success");
     var ui = Numis.ui;
     var payment = order.payment || {};
-    var fulfillment = order.fulfillment || {};
+    var fulfillment = order.fulfilment || order.fulfillment || {};
     var submitted = payment.status === "submitted" || payment.status === "verified";
 
     var itemsHTML = (order.items || [])
@@ -313,6 +362,16 @@ window.Numis = window.Numis || {};
     var shipping = order.shipping || {};
     var customer = order.customer || {};
 
+    var sourceNote =
+      order.source === "api"
+        ? "This order was recorded on the store server. Order will be processed after payment verification."
+        : "Demo mode — this order exists only in this browser. A backend must be connected for a real order. Order will be processed after payment verification.";
+
+    var submittedNote =
+      order.source === "api"
+        ? "Your payment reference was recorded on the store server and is awaiting manual verification. Keep your payment proof safe."
+        : "Payment reference recorded (local only). Once the backend is connected this reference is sent to the store. Keep your payment proof safe.";
+
     var referenceSection = submitted
       ? '<div class="notice notice-info">' +
         "<strong>Payment reference recorded:</strong> " +
@@ -320,9 +379,9 @@ window.Numis = window.Numis || {};
         "<br>" +
         "Status: " +
         ui.escapeHtml(formatStatus(payment.status)) +
-        " — awaiting manual verification. " +
-        "BACKEND REQUIRED: once the backend is connected this reference is sent to the store. " +
-        "Keep your payment proof (screenshot / UTR) safe.</div>"
+        " — " +
+        submittedNote +
+        "</div>"
       : '<form class="reference-form" id="reference-form" novalidate>' +
         '<div class="field">' +
         '<label for="payment-reference">Payment reference / UTR (optional)</label>' +
@@ -340,8 +399,7 @@ window.Numis = window.Numis || {};
       '<p class="eyebrow">Order received</p>' +
       "<h1>Thank you — your order has been placed.</h1>" +
       '<div class="order-id-box">' + ui.escapeHtml(order.orderId) + "</div>" +
-      '<div class="notice">Order will be processed after payment verification. ' +
-      "Please complete the UPI payment below.</div>" +
+      '<div class="notice">' + sourceNote + "</div>" +
 
       "<h2>Order summary</h2>" +
       '<ul class="order-items-list">' +
@@ -423,13 +481,38 @@ window.Numis = window.Numis || {};
           return;
         }
 
-        order.payment = order.payment || { method: "UPI", status: "pending", reference: "" };
-        order.payment.reference = value;
-        order.payment.status = "submitted";
-        order.updatedAt = new Date().toISOString();
-        saveActiveOrder(order);
-        Numis.ui.showToast("Payment reference recorded.");
-        renderOrderSuccess(order);
+        var submitLocal = function () {
+          order.payment = order.payment || { method: "UPI", status: "pending", reference: "" };
+          order.payment.reference = value;
+          order.payment.status = "submitted";
+          order.updatedAt = new Date().toISOString();
+          saveActiveOrder(order);
+          Numis.ui.showToast("Payment reference recorded.");
+          renderOrderSuccess(order);
+        };
+
+        if (order.source === "api" && Numis.api && Numis.api.canUseApi()) {
+          Numis.api
+            .submitReference(order.orderId, (order.customer && order.customer.phone) || "", value)
+            .then(function (updated) {
+              updated.source = "api";
+              saveActiveOrder(updated);
+              Numis.ui.showToast("Payment reference recorded on the store server.");
+              renderOrderSuccess(updated);
+            })
+            .catch(function (error) {
+              if (error && error.status >= 400 && error.status < 500) {
+                Numis.ui.showToast(error.message || "The store rejected this reference.");
+                return;
+              }
+              // Server unreachable — record locally so the flow still works.
+              console.warn("Could not submit reference to server, saved locally.", error);
+              Numis.ui.showToast("Server not reachable — reference saved locally.");
+              submitLocal();
+            });
+        } else {
+          submitLocal();
+        }
       });
     }
   }
