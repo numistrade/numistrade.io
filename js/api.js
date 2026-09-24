@@ -1,6 +1,6 @@
-/* HTTP client for the NumisTrade backend.
+/* HTTP client for the NumisTrade API.
    Every call fails soft: callers fall back to static/demo behaviour when the
-   API is not configured or unreachable. The backend is the only authority for
+   API is not configured or unreachable. The API is the only authority for
    prices, stock and orders — the browser never decides those. */
 
 window.Numis = window.Numis || {};

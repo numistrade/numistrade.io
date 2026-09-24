@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Admin | NumisTrade</title>
+
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <nav class="nav" aria-label="Main navigation">
+      <a href="index.html" class="brand">
+        <span class="coin-logo" aria-hidden="true">N</span>
+        <span class="brand-text">
+          <span class="brand-name">NUMISTRADE</span>
+          <span class="brand-tagline">Admin</span>
+        </span>
+      </a>
+      <div class="nav-links" id="nav-links">
+        <a href="index.html">← Back to site</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="section admin-page">
+
+    <!-- LOGIN -->
+    <section id="admin-login" class="admin-login" hidden>
+      <div class="state-panel login-card">
+        <p class="eyebrow">Restricted</p>
+        <h1>Admin sign in</h1>
+        <form id="login-form" novalidate>
+          <div class="field">
+            <label for="login-user">Username</label>
+            <input class="form-control" type="text" id="login-user" name="username" autocomplete="username" required>
+          </div>
+          <div class="field">
+            <label for="login-pass">Password</label>
+            <input class="form-control" type="password" id="login-pass" name="password" autocomplete="current-password" required>
+          </div>
+          <p class="field-error" id="login-error" role="alert" hidden></p>
+          <button type="submit" class="btn btn-gold" id="login-btn">Sign in</button>
+          <p class="hint" id="login-hint"></p>
+        </form>
+      </div>
+    </section>
+
+    <!-- EDITOR -->
+    <section id="admin-editor" hidden>
+      <div class="admin-toolbar">
+        <h1>Catalog editor <span class="count" id="admin-summary"></span></h1>
+        <div>
+          <button type="button" class="btn btn-gold btn-sm" data-add>+ Add listing</button>
+          <button type="button" class="btn btn-outline btn-sm" data-import>Import JSON</button>
+          <button type="button" class="btn btn-outline btn-sm" data-reset>Discard edits</button>
+        </div>
+        <div>
+          <button type="button" class="btn btn-navy btn-sm" data-copy>Copy JSON</button>
+          <button type="button" class="btn btn-navy btn-sm" data-download>Download products.json</button>
+          <button type="button" class="btn btn-outline btn-sm" data-logout>Log out</button>
+        </div>
+      </div>
+
+      <div class="notice notice-info workflow-note">
+        <strong>How publishing works (static site):</strong> edits live only in your browser.
+        Click <em>Download products.json</em>, replace <code>data/products.json</code> in the
+        repo with it, then <strong>git push</strong> — the site updates after Pages rebuilds.
+        Nothing is written to GitHub from this page.
+      </div>
+
+      <div id="admin-form" hidden></div>
+      <div data-admin-groups></div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p><strong>NUMISTRADE</strong> · Admin</p>
+    <p class="copyright">© 2026 NumisTrade. All rights reserved.</p>
+  </footer>
+
+  <script src="js/ui.js"></script>
+  <script src="js/admin-auth.js"></script>
+  <script src="js/admin.js"></script>
+  <script src="js/admin-products.js"></script>
+</body>
+</html>
